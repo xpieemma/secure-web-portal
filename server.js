@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import connectDB from './config/db.js';
 import passport from 'passport';
+import cors from 'cors';
 import userRoutes from './routes/users.js';
 import bookmarkRoutes from './routes/bookmarks.js';
 import './config/passport.js';
@@ -12,6 +13,7 @@ connectDB();
 const app = express();
 
 
+app.use(cors());
 app.use(express.json()); // Parse JSON bodies
 
 app.use(passport.initialize()); // Initialize passport

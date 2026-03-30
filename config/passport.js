@@ -10,8 +10,9 @@ passport.use(
       callbackURL: process.env.GITHUB_CALLBACK_URL, // GitHub callback URL
     },
     async (accessToken, refreshToken, profile, done) => { 
+
+      console.log('Type of done:', typeof done);
       try {
-      
         let user = await User.findOne({ githubId: profile.id }); // Find user by GitHub ID
         if (user) {
           return done(null, user); 

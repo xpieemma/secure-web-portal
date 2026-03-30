@@ -29,13 +29,12 @@ const userSchema = new mongoose.Schema( // Create user schema
 
 
 userSchema.pre('save', async function (next) { // Hash password before saving
-  if (!this.isModified('password') || !this.password) return next(); // If password is not modified or not provided, skip
+  if (!this.isModified('password') || !this.password) return; // If password is not modified or not provided, skip
   try {
     const salt = await bcrypt.genSalt(10); // Generate salt
     this.password = await bcrypt.hash(this.password, salt); // Hash password
-    next(); // Continue to next middleware
   } catch (err) { // If error occurs
-    next(err); // Pass error to next middleware
+  throw new Error(err);
   }
 });
 
