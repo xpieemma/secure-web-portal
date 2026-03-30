@@ -16,8 +16,7 @@ passport.use(
         if (user) {
           return done(null, user); 
         }
-
-       
+        const email = profile.emails && profile.emails[0] ? profile.emails[0].value : null; // Get user email
         if (email) {
           user = await User.findOne({ email }); // Find user by email
           if (user) {
